@@ -49,9 +49,9 @@ export default function CharacterList() {
       <Head2>List of Known Characters:</Head2>
       <Link className="main-buttons" to="/"><HomeButt>Home</HomeButt></Link>
       <SearchForm characters={characters} />
-      {characters.map(char => {
+      {/* {characters.map(char => {
         return <CharacterCard key={char.id} character={char} />;
-      })}
+      })} */}
       <PaginationButt className="butts">
         <button className="pageButt" onClick={() => setPage(page-1)} >{'<'}</button>
         <h1>{page}</h1>
