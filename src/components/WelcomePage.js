@@ -24,6 +24,10 @@ export default function WelcomePage() {
     margin-left: 39%;
     font-family: 'Source Code Pro', monospace;
     margin-top: 5%;
+    box-shadow: 2px 2px 6px chartreuse;
+    color: white;
+    background: lime;
+    border: 1px solid white;
   ;`
 
   const Wub =styled.div`
