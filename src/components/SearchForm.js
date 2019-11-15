@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from "react";
+import axios from "axios";
 import styled from "styled-components";
+import CharacterCard from "./CharacterCard";
 
 const FormSty = styled.form`
   text-align: center;
@@ -14,35 +16,51 @@ const Label = styled.label`
 
 export default function SearchForm(props) {
 
-  console.log(props);
-
+  const [query, setQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
-  const handleChange = event => {
-    setSearchResults(event.target.value);
-  };
+  useEffect(() => {
+    axios.get("https://rickandmortyapi.com/api/character/")
+    .then(response => {
+      const results = response.data.results.filter(character => { 
+        return character.name.toLowerCase().includes(query.toLowerCase())
+      })
+      setSearchResults(results);
+    }).catch(error => {
+      return ("error", error)});
+  }, [query]);
 
-  const submitHandle = event => {
-    event.preventDefault();
-    const filteredCards = props.characters.filter(character => {
-      return character.name.toLowerCase().includes((searchResults.toLowerCase()));
-    });
-    props.searchList(filteredCards);
-    console.log(filteredCards);
-  }
+  const handleChange = event => {
+    setQuery(event.target.value);
+  };
 
   return (
     <section className="search-form">
-     <FormSty onSubmit={submitHandle}>
+     <FormSty>
        <Label htmlFor="name">Search:</Label>
         <input 
           id="name" 
           type="text" 
           name="textfield" 
           placeholder="Search..." 
-          onChange={handleChange} 
-        />   
+          onChange={handleChange}
+          value={query} 
+        />  
       </FormSty>
+      {searchResults.map((char => {
+        return(
+          <CharacterCard 
+            key={char.id} 
+            id={char.id}
+            name={char.name} 
+            species ={char.species} 
+            status={char.status}
+            image={char.image}
+            gender={char.gender}
+            origin={char.origin.name}
+          />)
+        }
+      ))}
     </section>
   );
 }

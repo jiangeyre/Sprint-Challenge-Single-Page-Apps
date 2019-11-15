@@ -28,11 +28,6 @@ const HomeButt = styled.button`
 export default function CharacterList() {
   const [characters, setCharacters] = useState([]);
   const [page, setPage] = useState(1);
-  const [filteredData, updateData] = useState([]);
-
-  const searchList = characterArr => {
-    updateData(characterArr);
-  };
 
   if(page === 0){
     setPage(20);
@@ -43,9 +38,7 @@ export default function CharacterList() {
   useEffect(() => {
     axios.get(`https://rickandmortyapi.com/api/character/?page=${page}`)
     .then(response => {
-      console.log(response.data.results);
       setCharacters(response.data.results);
-      updateData(response.data.results);
     }).catch(error => {
       console.log("Your data was not returned.", error);
     })
@@ -55,8 +48,8 @@ export default function CharacterList() {
     <section className="character-list">
       <Head2>List of Known Characters:</Head2>
       <Link className="main-buttons" to="/"><HomeButt>Home</HomeButt></Link>
-      <SearchForm searchList={searchList} characters={characters} />
-      {filteredData.map(char => {
+      <SearchForm characters={characters} />
+      {characters.map(char => {
         return <CharacterCard key={char.id} character={char} />;
       })}
       <PaginationButt className="butts">

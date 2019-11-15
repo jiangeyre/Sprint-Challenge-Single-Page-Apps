@@ -41,19 +41,21 @@ export default function CharacterCard(props) {
       font-family: 'Source Code Pro', monospace;
     `;
 
+  console.log(props);
+
 
   return (
     <div className="character-card">
       <Card>
-        <CardImg src={props.character.image} />
+        <CardImg src={props.image} />
         <CardInfo>
-          <div>ID: {props.character.id}</div>
-          <div>Name: {props.character.name}</div>
-          <div>Gender: {props.character.gender}</div>
-          <div>Species: {props.character.species}</div>
-          <div>Origin: {props.character.origin.name}</div>
+          <div>ID: {props.id}</div>
+          <div>Name: {props.name}</div>
+          <div>Gender: {props.gender}</div>
+          <div>Species: {props.species}</div>
+          <div>Origin: {props.origin}</div>
         </CardInfo>
-        <Status>Status: {props.character.status}</Status>
+        <Status>Status: {props.status}</Status>
       </Card>
     </div>
   )
