@@ -19,10 +19,13 @@ const HomeButt = styled.button`
   border-radius: 5px;
   margin-left: 90%;
   font-family: 'Source Code Pro', monospace;
+  box-shadow: 2px 2px 6px chartreuse;
+  color: white;
+  background: lime;
+  border: 1px solid white;
 ;`
 
 export default function CharacterList() {
-  // TODO: Add useState to track data from useEffect
   const [characters, setCharacters] = useState([]);
   const [page, setPage] = useState(1);
   const [filteredData, updateData] = useState([]);

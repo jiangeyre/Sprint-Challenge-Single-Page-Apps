@@ -14,6 +14,8 @@ const Label = styled.label`
 
 export default function SearchForm(props) {
 
+  console.log(props);
+
   const [searchResults, setSearchResults] = useState([]);
 
   const handleChange = event => {
@@ -25,7 +27,7 @@ export default function SearchForm(props) {
     const filteredCards = props.characters.filter(character => {
       return character.name.toLowerCase().includes((searchResults.toLowerCase()));
     });
-    props.search(filteredCards);
+    props.searchList(filteredCards);
     console.log(filteredCards);
   }
 
