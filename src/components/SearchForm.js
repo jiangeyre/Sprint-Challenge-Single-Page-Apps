@@ -15,6 +15,9 @@ const Label = styled.label`
 
 export default function SearchForm(props) {
   //deconstructing props
+
+  console.log(props);
+  
   const {characters} = props;
 
   const [query, setQuery] = useState("");
@@ -26,7 +29,7 @@ export default function SearchForm(props) {
       return char.name.toLowerCase().includes(query.toLowerCase());
     })
     setNewChars(results);
-  }, [query]);
+  }, [characters, query]);
 
   const handleChange = event => {
     setQuery(event.target.value);
@@ -45,20 +48,7 @@ export default function SearchForm(props) {
           value={query} 
         />  
       </FormSty>
-      {(query==="")?characters.map((char => {
-        return(
-          <CharacterCard 
-            key={char.id} 
-            id={char.id}
-            name={char.name} 
-            species ={char.species} 
-            status={char.status}
-            image={char.image}
-            gender={char.gender}
-            origin={char.origin.name}
-          />)
-        }
-      )): newChars.map((char) => {
+      {newChars.map((char) => {
         return(
           <CharacterCard 
             key={char.id} 
