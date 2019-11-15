@@ -1,11 +1,23 @@
 import React, {useState, useEffect} from "react";
+import styled from "styled-components";
+
+const FormSty = styled.form`
+  text-align: center;
+  font-size: 1.3rem;
+  font-family: 'Source Code Pro', monospace;
+  margin-bottom: 5%;
+;`
+
+const Label = styled.label`
+  text-align: center;
+;`
 
 export default function SearchForm(props) {
 
   const [searchResults, setSearchResults] = useState([]);
 
-  const handleChange = e => {
-    setSearchResults(e.target.value);
+  const handleChange = event => {
+    setSearchResults(event.target.value);
   };
 
   const submitHandle = event => {
@@ -19,8 +31,8 @@ export default function SearchForm(props) {
 
   return (
     <section className="search-form">
-     <form onSubmit={submitHandle}>
-       <label htmlFor="name">Search:</label>
+     <FormSty onSubmit={submitHandle}>
+       <Label htmlFor="name">Search:</Label>
         <input 
           id="name" 
           type="text" 
@@ -28,7 +40,7 @@ export default function SearchForm(props) {
           placeholder="Search..." 
           onChange={handleChange} 
         />   
-      </form>
+      </FormSty>
     </section>
   );
 }

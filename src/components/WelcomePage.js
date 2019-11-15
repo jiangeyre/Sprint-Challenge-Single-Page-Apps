@@ -19,7 +19,6 @@ export default function WelcomePage() {
   ;`
 
   const Button =styled.button`
-    font-family: 'Roboto', sans-serif;
     font-size: 1.2rem;
     border-radius: 5px;
     margin-left: 39%;

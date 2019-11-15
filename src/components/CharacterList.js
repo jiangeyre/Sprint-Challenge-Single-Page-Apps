@@ -9,6 +9,17 @@ const PaginationButt = styled.div `
   text-align: center;
 ;`
 
+const Head2 = styled.h2`
+  text-align: center;
+  font-family: 'Source Code Pro', monospace;
+;`
+
+const HomeButt = styled.button`
+  font-size: 1.2rem;
+  border-radius: 5px;
+  margin-left: 90%;
+  font-family: 'Source Code Pro', monospace;
+;`
 
 export default function CharacterList() {
   // TODO: Add useState to track data from useEffect
@@ -39,8 +50,8 @@ export default function CharacterList() {
 
   return (
     <section className="character-list">
-      <h2>List of Known Characters:</h2>
-      <Link className="main-buttons" to="/"><button>Home</button></Link>
+      <Head2>List of Known Characters:</Head2>
+      <Link className="main-buttons" to="/"><HomeButt>Home</HomeButt></Link>
       <SearchForm searchList={searchList} characters={characters} />
       {filteredData.map(char => {
         return <CharacterCard key={char.id} character={char} />;
