@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from "react";
-import axios from "axios";
 import styled from "styled-components";
 import CharacterCard from "./CharacterCard";
 
@@ -15,19 +14,18 @@ const Label = styled.label`
 ;`
 
 export default function SearchForm(props) {
+  //deconstructing props
+  const {characters} = props;
 
   const [query, setQuery] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
+
+  const [newChars, setNewChars] = useState([]);
 
   useEffect(() => {
-    axios.get("https://rickandmortyapi.com/api/character/")
-    .then(response => {
-      const results = response.data.results.filter(character => { 
-        return character.name.toLowerCase().includes(query.toLowerCase())
-      })
-      setSearchResults(results);
-    }).catch(error => {
-      return ("error", error)});
+    const results = characters.filter(char => {
+      return char.name.toLowerCase().includes(query.toLowerCase());
+    })
+    setNewChars(results);
   }, [query]);
 
   const handleChange = event => {
@@ -47,7 +45,7 @@ export default function SearchForm(props) {
           value={query} 
         />  
       </FormSty>
-      {searchResults.map((char => {
+      {(query==="")?characters.map((char => {
         return(
           <CharacterCard 
             key={char.id} 
@@ -60,7 +58,19 @@ export default function SearchForm(props) {
             origin={char.origin.name}
           />)
         }
-      ))}
+      )): newChars.map((char) => {
+        return(
+          <CharacterCard 
+            key={char.id} 
+            id={char.id}
+            name={char.name} 
+            species ={char.species} 
+            status={char.status}
+            image={char.image}
+            gender={char.gender}
+            origin={char.origin.name}
+          />)
+      })}
     </section>
   );
 }

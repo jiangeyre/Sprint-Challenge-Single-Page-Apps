@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {Link} from "react-router-dom";
 import axios from "axios";
-import CharacterCard from "./CharacterCard";
 import SearchForm from "./SearchForm";
 import styled from "styled-components";
 
@@ -49,9 +48,6 @@ export default function CharacterList() {
       <Head2>List of Known Characters:</Head2>
       <Link className="main-buttons" to="/"><HomeButt>Home</HomeButt></Link>
       <SearchForm characters={characters} />
-      {/* {characters.map(char => {
-        return <CharacterCard key={char.id} character={char} />;
-      })} */}
       <PaginationButt className="butts">
         <button className="pageButt" onClick={() => setPage(page-1)} >{'<'}</button>
         <h1>{page}</h1>

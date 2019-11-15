@@ -41,9 +41,6 @@ export default function CharacterCard(props) {
       font-family: 'Source Code Pro', monospace;
     `;
 
-  console.log(props);
-
-
   return (
     <div className="character-card">
       <Card>
