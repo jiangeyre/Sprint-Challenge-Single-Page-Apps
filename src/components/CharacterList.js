@@ -25,29 +25,14 @@ const HomeButt = styled.button`
 ;`
 
 export default function CharacterList() {
-  const [characters, setCharacters] = useState([]);
+
   const [page, setPage] = useState(1);
-
-  if(page === 0){
-    setPage(20);
-  }else if(page > 20){
-    setPage(1);
-  }
-
-  useEffect(() => {
-    axios.get(`https://rickandmortyapi.com/api/character/?page=${page}`)
-    .then(response => {
-      setCharacters(response.data.results);
-    }).catch(error => {
-      console.log("Your data was not returned.", error);
-    })
-  }, [page]);
 
   return (
     <section className="character-list">
       <Head2>List of Known Characters:</Head2>
       <Link className="main-buttons" to="/"><HomeButt>Home</HomeButt></Link>
-      <SearchForm characters={characters} />
+      <SearchForm page={page} setPage={setPage} />
       <PaginationButt className="butts">
         <button className="pageButt" onClick={() => setPage(page-1)} >{'<'}</button>
         <h1>{page}</h1>

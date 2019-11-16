@@ -16,39 +16,28 @@ const Label = styled.label`
 
 export default function SearchForm(props) {
   //deconstructing props
-
-  console.log(props);
-  
-  const {characters} = props;
-
+  // console.log(props);
+  const {characters, page, setPage } = props;
   const [query, setQuery] = useState("");
-
   const [newChars, setNewChars] = useState([]);
-
-
-  useEffect(() => {
-    const results = characters.filter(char => {
-      return char.name.toLowerCase().includes(query.toLowerCase());
-    })
-    axios.get(`https://rickandmortyapi.com/api/character/?name=${encodeURIComponent(query.toLowerCase())}`)
-    .then(response => {
-      setNewChars(response.data.results);
-    }).catch(error => {
-      console.log("Error returned:", error);
-    })
-    setNewChars(results);
-  }, [characters, query]);
-
-  // useEffect(() => {
-  //   const results = characters.filter(char => {
-  //     return char.name.toLowerCase().includes(query.toLowerCase());
-  //   })
-  //   setNewChars(results);
-  // }, [characters, query]);
 
   const handleChange = event => {
     setQuery(event.target.value);
   };
+
+  useEffect(() => {
+    axios.get(`https://rickandmortyapi.com/api/character/?name=${encodeURIComponent(query.toLowerCase())}&page=${page}`)
+    .then(response => {
+      setNewChars(response.data.results);
+      if(page < 1){
+        setPage(response.data.info.pages - 1);
+      }else if(page > response.data.info.pages - 1){
+        setPage(1);
+      }
+    }).catch(error => {
+      console.log("Error returned:", error);
+    })
+  }, [characters, query, page, setPage]);
 
   return (
     <section className="search-form">
@@ -58,7 +47,7 @@ export default function SearchForm(props) {
           id="name" 
           type="text" 
           name="textfield" 
-          placeholder="Search..." 
+          placeholder="Search by Name..." 
           onChange={handleChange}
           value={query} 
         />  
