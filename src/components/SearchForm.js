@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 import CharacterCard from "./CharacterCard";
+import axios from "axios";
 
 const FormSty = styled.form`
   text-align: center;
@@ -24,12 +25,26 @@ export default function SearchForm(props) {
 
   const [newChars, setNewChars] = useState([]);
 
+
   useEffect(() => {
     const results = characters.filter(char => {
       return char.name.toLowerCase().includes(query.toLowerCase());
     })
+    axios.get(`https://rickandmortyapi.com/api/character/?name=${encodeURIComponent(query.toLowerCase())}`)
+    .then(response => {
+      setNewChars(response.data.results);
+    }).catch(error => {
+      console.log("Error returned:", error);
+    })
     setNewChars(results);
   }, [characters, query]);
+
+  // useEffect(() => {
+  //   const results = characters.filter(char => {
+  //     return char.name.toLowerCase().includes(query.toLowerCase());
+  //   })
+  //   setNewChars(results);
+  // }, [characters, query]);
 
   const handleChange = event => {
     setQuery(event.target.value);
